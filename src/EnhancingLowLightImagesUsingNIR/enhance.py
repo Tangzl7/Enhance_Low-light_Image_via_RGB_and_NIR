@@ -8,6 +8,7 @@ from formatConversion import rgb2yiq, yiq2rgb
 if __name__ == '__main__':
     I = np.double(cv2.resize(cv2.imread('../../data/demo/img_2_0.png'), (128, 128)))
     NIR = np.double(cv2.resize(cv2.imread('../../data/demo/img_2_1.png'), (128, 128)))[:, :, 0]
+    I, NIR = I / 255., NIR / 255.
 
 
     NIR_wls = wlsFilter(NIR)
