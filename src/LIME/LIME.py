@@ -5,6 +5,7 @@ from tqdm import trange
 import matplotlib.pyplot as plt
 import argparse
 import os
+import cv2
 
 
 def firstOrderDerivative(n, k=1):
@@ -103,6 +104,9 @@ class LIME:
 
     def enhance(self):
         self.T = self.illumMap()
+        # cv2.imwrite('illummap.png', self.T_hat*255)
+        # self.T = (cv2.imread('wls.png')[:, :, 0]/255.) ** self.gamma
+        # self.T = self.T_hat ** self.gamma
         self.R = self.L / np.repeat(self.T[:, :, np.newaxis], 3, axis=2)
         self.R = exposure.rescale_intensity(self.R, (0, 1))
         self.R = img_as_ubyte(self.R)
@@ -124,7 +128,7 @@ def main(options):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--filePath", default="./data/1.bmp", type=str, help="image path to enhance")
+    parser.add_argument("-f", "--filePath", default="D:/PycharmProjects/LIME/data/2.bmp", type=str, help="image path to enhance")
     parser.add_argument("-m", "--map", action="store_true", help="save illumination map")
     parser.add_argument("-o", "--output", default="./", type=str, help="output folder")
 

@@ -60,39 +60,3 @@ def wlsFilter(img, img_b, nir, Lambda, alpha=1.2, eps=0.0001):
     out = np.reshape(out, (row, cols))
 
     return out
-
-
-# img = cv2.imread('/home/tangzl/buaa/projects/python_projects/Enhance_Low-light_Image_via_RGB_and_NIR/data/demo/img_2_0.png', cv2.IMREAD_ANYCOLOR)
-# img = cv2.resize(img, (128, 128))
-# m = np.double(img)
-#
-# b, g, r = cv2.split(m)
-#
-# ib = np.array(b)
-# p1, q1 = ib.shape[:2]
-# h1 = p1 * q1
-# ib = np.reshape(ib, (h1, 1))
-# b = b / np.max(ib)
-#
-# ig = np.array(g)
-# p2, q2 = ig.shape[:2]
-# h2 = p2 * q2
-# ig = np.reshape(ig, (h2, 1))
-# g = g / np.max(ig)
-#
-# ir = np.array(r)
-# p3, q3 = ir.shape[:2]
-# h3 = p3 * q3
-# ir = np.reshape(ir, (h3, 1))
-# r = r / np.max(ir)
-#
-# wls1 = wlsFilter(b, 1)
-# wls2 = wlsFilter(g, 1)
-# wls3 = wlsFilter(r, 1)
-# wls = cv2.merge([wls1, wls2, wls3])
-#
-# cv2.imshow('image', img)
-# cv2.imshow('filter', wls)
-# cv2.imwrite(r'C:\Users\x\Desktop\18.jpg', wls)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
