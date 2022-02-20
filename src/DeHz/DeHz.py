@@ -56,7 +56,7 @@ def enhance(invert, air_light, transmission):
 
 
 if __name__ == '__main__':
-    img = cv2.imread('D:/PycharmProjects/LIME/data/1.bmp')
+    img = cv2.imread('../../data/demo/img_2_0.png')
     img = np.double(img)
 
     invert = get_invert(img)
@@ -69,6 +69,7 @@ if __name__ == '__main__':
     result = get_invert(result)
 
     result = np.uint8(result)
+    cv2.imwrite('result.png', result)
     cv2.imshow('result', result)
     cv2.waitKey(0)
 

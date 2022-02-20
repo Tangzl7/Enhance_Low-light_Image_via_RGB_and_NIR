@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import matplotlib.pylab as plt
 
 
 def show_rgb(path):
@@ -66,9 +67,68 @@ def get_channel_img(path, i):
     return img[:, :, i]
 
 
+def histogram(path):
+    img = cv2.imread(path)
+    b, g, r = img[:, :, 0], img[:, :, 1], img[:, :, 2]
+    plt.figure('img')
+    ar = np.array(r).flatten()
+    plt.hist(ar, bins=256, facecolor='r', edgecolor='r')
+    ag = np.array(g).flatten()
+    plt.hist(ag, bins=256, facecolor='g', edgecolor='g')
+    ab = np.array(b).flatten()
+    plt.hist(ab, bins=256, facecolor='b', edgecolor='b')
+    plt.show()
+
+
+def pixel_probability(img):
+    prob = np.zeros(shape=(256))
+
+    for rv in img:
+        for cv in rv:
+            prob[cv] += 1
+
+    r, c = img.shape
+    prob = prob / (r * c)
+    return prob
+
+
+def probability_to_histogram(img, prob):
+    prob = np.cumsum(prob)
+
+    img_map = [int(i * prob[i]) for i in range(256)]
+
+    r, c = img.shape
+    for ri in range(r):
+        for ci in range(c):
+            img[ri, ci] = img_map[img[ri, ci]]
+    return img
+
+def hisEqulColor(path):
+    img = cv2.imread(path)
+    yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+    channels = cv2.split(yuv)
+    cv2.equalizeHist(channels[0], channels[0])
+    cv2.merge(channels, yuv)
+    cv2.cvtColor(yuv, cv2.COLOR_YCR_CB2BGR, img)
+    return img
+
+
 # show_rgb_one('../data/demo/img_2_0.png', 2)
 # show_rgb_light('../data/demo/img_2_0.png')
 # show_rgb('../data/demo/img_2_0.png')
 # show_nir('../data/demo/img_2_1.png')
 
-show_light_img('../data/demo/img_2_0.png')
+# show_light_img('../data/demo/img_2_0.png')
+# histogram('../src/LIME/enhanced_img_2_0.png')
+result = hisEqulColor('../src/LIME/enhanced_img_2_0.png')
+cv2.imwrite('result__.png', result)
+
+# img = cv2.imread("../src/LIME/enhanced_img_2_0.png")
+# b, g, r = img[:, :, 0], img[:, :, 1], img[:, :, 2]
+# b_prob = pixel_probability(b)
+# g_prob = pixel_probability(g)
+# r_prob = pixel_probability(r)
+# b = probability_to_histogram(b, b_prob)
+# g = probability_to_histogram(g, g_prob)
+# r = probability_to_histogram(r, r_prob)
+# cv2.imwrite('result_.png', img)
