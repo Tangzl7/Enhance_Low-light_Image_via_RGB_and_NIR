@@ -53,9 +53,9 @@ def hpf(img, kernel_size=19):
     return hpf
 
 
-if __name__ == '__main__':
-    img = cv2.imread('./data/rgb.tiff')
-    nir = np.float32(cv2.imread('./data/nir.tiff')[:, :, 0])
+def enhancement(img, nir):
+    # img = cv2.imread('../SpectrumCharacteristicsPreservedFusion/data/rgb.tiff')
+    # nir = np.float32(cv2.imread('../SpectrumCharacteristicsPreservedFusion/data/nir.tiff')[:, :, 0])
     yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
     img, yuv = np.float32(img), np.float32(yuv)
     luminance = yuv[:, :, 0]
@@ -63,13 +63,14 @@ if __name__ == '__main__':
     lc_y = local_contrast(luminance)
     lc_nir = local_contrast(nir)
     fusion_map = get_fusion_map(lc_y, lc_nir)
-    hpf = hpf(nir)
+    hpf_ = hpf(nir)
 
     result = img.copy()
-    result[:, :, 0] += fusion_map * hpf
-    result[:, :, 1] += fusion_map * hpf
-    result[:, :, 2] += fusion_map * hpf
+    result[:, :, 0] += fusion_map * hpf_
+    result[:, :, 1] += fusion_map * hpf_
+    result[:, :, 2] += fusion_map * hpf_
     result = np.minimum(255, np.maximum(0, result))
     result = np.uint8(result)
-    cv2.imshow('r', result)
-    cv2.waitKey(0)
+    return result
+    # cv2.imshow('r', result)
+    # cv2.waitKey(0)
