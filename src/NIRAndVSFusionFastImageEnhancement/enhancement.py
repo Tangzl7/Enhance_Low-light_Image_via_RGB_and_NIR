@@ -54,8 +54,8 @@ def hpf(img, kernel_size=19):
 
 
 def enhancement(img, nir):
-    # img = cv2.imread('../SpectrumCharacteristicsPreservedFusion/data/rgb.tiff')
-    # nir = np.float32(cv2.imread('../SpectrumCharacteristicsPreservedFusion/data/nir.tiff')[:, :, 0])
+    # img = cv2.imread('../SCPF/data/rgb.tiff')
+    # nir = np.float32(cv2.imread('../SCPF/data/nir.tiff')[:, :, 0])
     yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
     img, yuv = np.float32(img), np.float32(yuv)
     luminance = yuv[:, :, 0]

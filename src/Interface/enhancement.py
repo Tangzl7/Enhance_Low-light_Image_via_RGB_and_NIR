@@ -2,7 +2,7 @@ import os
 import cv2
 import random
 from util import *
-from SpectrumCharacteristicsPreservedFusion.fusion import enhancement as enhancement
+from SCPF.fusion import enhancement as enhancement
 
 
 @app.route('/enhancement', methods=['GET'])

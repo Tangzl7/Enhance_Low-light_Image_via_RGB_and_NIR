@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+from matplotlib import cm as CM
+from matplotlib import pyplot as plt
 
 
 def burred_nir(nir, kernel_size=19):
@@ -57,9 +59,16 @@ def enhancement(rgb, nir):
     # rgb = cv2.imread('./rgb.bmp')
     # nir = cv2.imread('./nir.bmp')
     burred = burred_nir(nir)
+    cv2.imwrite('static/deblur/blurred_nir.png', burred)
     rgb, nir, burred = np.float32(rgb), np.float32(nir), np.float32(burred)
     rgb, nir, burred = rgb / 255., nir / 255., burred / 255.
     llt_map = llt(rgb, burred)
+    fig = plt.gcf()
+    plt.imshow(llt_map[0][0], cmap=CM.hot)
+    fig.savefig('../Interface/static/deblur/slope.png')
+    fig = plt.gcf()
+    plt.imshow(llt_map[0][1], cmap=CM.jet)
+    fig.savefig('../Interface/static/deblur/offset.png')
     enhancement = rgb.copy()
     for i in range(3):
         enhancement[:, :, i] = llt_map[i][0] * nir + llt_map[i][1]
