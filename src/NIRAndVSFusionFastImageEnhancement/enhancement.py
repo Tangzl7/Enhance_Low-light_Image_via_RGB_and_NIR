@@ -53,15 +53,17 @@ def hpf(img, kernel_size=19):
     return hpf
 
 
-def enhancement(img, nir):
-    # img = cv2.imread('../SCPF/data/rgb.tiff')
-    # nir = np.float32(cv2.imread('../SCPF/data/nir.tiff')[:, :, 0])
+def enhancement():
+    img = cv2.imread('test/80_rgb.bmp')
+    nir = np.float32(cv2.imread('test/80_nir.bmp')[:, :, 0])
     yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
     img, yuv = np.float32(img), np.float32(yuv)
     luminance = yuv[:, :, 0]
 
     lc_y = local_contrast(luminance)
     lc_nir = local_contrast(nir)
+    cv2.imshow('t2', np.uint8(lc_nir))
+    cv2.waitKey(0)
     fusion_map = get_fusion_map(lc_y, lc_nir)
     hpf_ = hpf(nir)
 
@@ -71,6 +73,9 @@ def enhancement(img, nir):
     result[:, :, 2] += fusion_map * hpf_
     result = np.minimum(255, np.maximum(0, result))
     result = np.uint8(result)
-    return result
-    # cv2.imshow('r', result)
-    # cv2.waitKey(0)
+    # return result
+    cv2.imshow('r', result)
+    cv2.waitKey(0)
+    cv2.imwrite('./rgb.png', result)
+
+enhancement()

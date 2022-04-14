@@ -22,6 +22,10 @@ def enhancement(vis, nir):
     first_detail_layer_g, second_detail_layer_g = detail_layer(vis[:, :, 1], first_base_layer_g, second_base_layer_g)
     first_detail_layer_r, second_detail_layer_r = detail_layer(vis[:, :, 2], first_base_layer_r, second_base_layer_r)
     first_detail_layer_n, second_detail_layer_n = detail_layer(nir, first_base_layer_n, second_base_layer_n)
+    # cv2.imshow('ttt', np.uint8(first_base_layer_n*255))
+    # cv2.waitKey(0)
+    # cv2.imshow('tttt', np.uint8(second_base_layer_n * 255))
+    # cv2.waitKey(0)
 
     first_gradient_map_b, second_gradient_map_b = gradient_map(first_detail_layer_b, second_detail_layer_b)
     first_gradient_map_g, second_gradient_map_g = gradient_map(first_detail_layer_g, second_detail_layer_g)
@@ -59,6 +63,15 @@ def enhancement(vis, nir):
 
     fusion_map = light_enhance(fusion_map, nir)
     fusion_map = np.uint8(fusion_map)
-    # cv2.imshow('f', fusion_map)
+    cv2.imwrite('../Interface/static/detail_enhancement/enhancement.png', fusion_map)
     # cv2.waitKey(0)
     return fusion_map
+
+# rgb = cv2.imread('./80_rgb.bmp')
+# nir = cv2.imread('./80_nir.bmp')[:, :, 0]
+# rgb = rgb[200:400, 200:400, :]
+# nir = nir[200:400, 200:400]
+# rgb = cv2.imread('../../data/visual_results/full_resolution_images_of_fig_3_and_4/fig_3_a_rgb.png')
+# nir = cv2.imread('../../data/visual_results/full_resolution_images_of_fig_3_and_4/fig_3_a_nir.png')[:, :, 0]
+# rgb, nir = rgb[0:600, 200:800, :], nir[:600, 200:800]
+# enhancement(rgb, nir)
