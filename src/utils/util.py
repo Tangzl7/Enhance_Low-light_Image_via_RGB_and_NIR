@@ -165,9 +165,9 @@ def getV1(m, r, eps, w, maxV1):  # 输入rgb图像，值范围[0,1]
 
 def getV1_(m, r, eps, w, maxV1):  # 输入rgb图像，值范围[0,1]
     '''计算大气遮罩图像V1和光照值A, V1 = 1-t/A'''
-    img = cv2.imread('D:/MATLAB/bin/denoisy/init_enhancement.png')
-    nir = cv2.imread('test/80_nir.bmp')[:, :, 0] / 256.0
-    il = cv2.imread('D:/MATLAB/bin/denoisy/init_illumination.png')[:, :, 0] / 256.0
+    img = cv2.imread('../Interface/static/low_light_enhancement/init_enhancement.png')
+    nir = cv2.imread('../test/80_nir.bmp')[:, :, 0] / 256.0
+    il = cv2.imread('../Interface/static/low_light_enhancement//init_illumination.png')[:, :, 0] / 256.0
     nir = np.uint8(nir / (il ** 0.7) * 256)
     diff = np.abs(nir * 1.0 - img[:, :, 0] * 1.0) / 255.
     # diff = np.uint8(diff)
@@ -201,8 +201,6 @@ def deHaze(m, r=81, eps=0.001, w=0.95, maxV1=0.80, bGamma=False):
         Y = Y ** (np.log(0.5) / np.log(Y.mean()))  # gamma校正,默认不进行该操作
     return Y
 
-import rawpy
-import imageio
 
 if __name__ == '__main__':
     m = deHaze(cv2.imread('D:/MATLAB/bin/denoisy/init_enhancement.png') / 255.0) * 255

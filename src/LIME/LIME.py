@@ -137,7 +137,7 @@ def main(options):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--filePath", default="../../data/demo/img_2_0.png", type=str, help="image path to enhance")
+    parser.add_argument("-f", "--filePath", default="../test/80_rgb.bmp", type=str, help="image path to enhance")
     parser.add_argument("-m", "--map", action="store_true", help="save illumination map")
     parser.add_argument("-o", "--output", default="./", type=str, help="output folder")
 

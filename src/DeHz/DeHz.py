@@ -56,7 +56,7 @@ def enhance(invert, air_light, transmission):
 
 
 if __name__ == '__main__':
-    img = cv2.imread('../../data/demo/img_2_0.png')
+    img = cv2.imread('../test/80_rgb.bmp')
     img = np.double(img)
 
     invert = get_invert(img)
