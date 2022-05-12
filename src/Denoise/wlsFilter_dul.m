@@ -37,7 +37,6 @@ function OUT = wlsFilter_dul(IN,IN_b,NIR, lambda, alpha, L)
 
 if(~exist('L', 'var')),
     L = log(IN_b.*NIR+eps);
-%     N = log(NIR+eps);
 end
 
 if(~exist('alpha', 'var')),
@@ -55,13 +54,11 @@ k = r*c;
 
 % Compute affinities between adjacent pixels based on gradients of L
 dy = diff(L, 1, 1);
-% dy_n = diff(N, 1, 1);
 dy = -lambda./(abs(dy).^alpha + smallNum);
 dy = padarray(dy, [1 0], 'post');
 dy = dy(:);
 
-dx = diff(L, 1, 2); 
-% dx_n = diff(N, 1, 2); 
+dx = diff(L, 1, 2);
 dx = -lambda./(abs(dx).^alpha + smallNum);
 dx = padarray(dx, [0 1], 'post');
 dx = dx(:);

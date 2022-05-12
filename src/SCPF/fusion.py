@@ -5,8 +5,6 @@ from transmission import *
 
 
 def enhancement(vis, nir):
-    # vis = cv2.imread('../../data/visual_results/full_resolution_images_of_fig_3_and_4/fig_4_a_rgb.tiff')
-    # nir = cv2.imread('../../data/visual_results/full_resolution_images_of_fig_3_and_4/fig_4_a_nir.tiff')[:, :, 0]
 
     # reflection model
     reflection = reflection_model_init(vis, nir)
@@ -22,10 +20,6 @@ def enhancement(vis, nir):
     first_detail_layer_g, second_detail_layer_g = detail_layer(vis[:, :, 1], first_base_layer_g, second_base_layer_g)
     first_detail_layer_r, second_detail_layer_r = detail_layer(vis[:, :, 2], first_base_layer_r, second_base_layer_r)
     first_detail_layer_n, second_detail_layer_n = detail_layer(nir, first_base_layer_n, second_base_layer_n)
-    # cv2.imshow('ttt', np.uint8(first_base_layer_n*255))
-    # cv2.waitKey(0)
-    # cv2.imshow('tttt', np.uint8(second_base_layer_n * 255))
-    # cv2.waitKey(0)
 
     first_gradient_map_b, second_gradient_map_b = gradient_map(first_detail_layer_b, second_detail_layer_b)
     first_gradient_map_g, second_gradient_map_g = gradient_map(first_detail_layer_g, second_detail_layer_g)
@@ -58,8 +52,6 @@ def enhancement(vis, nir):
     fusion_map[:, :, 2] = fusion_map[:, :, 2] * (first_detail_layer_r * first_fusion_weight_r + first_detail_layer_n * (1 - first_fusion_weight_r))
     fusion_map = np.uint8(fusion_map * 255)
     cv2.imwrite('../Interface/static/detail_enhancement/init_fusion.png', fusion_map)
-    # cv2.imshow('f', fusion_map)
-    # cv2.waitKey(0)
 
     fusion_map = light_enhance(fusion_map, nir)
     fusion_map = np.uint8(fusion_map)
@@ -67,11 +59,6 @@ def enhancement(vis, nir):
     # cv2.waitKey(0)
     return fusion_map
 
-# rgb = cv2.imread('./80_rgb.bmp')
-# nir = cv2.imread('./80_nir.bmp')[:, :, 0]
-# rgb = rgb[200:400, 200:400, :]
-# nir = nir[200:400, 200:400]
-# rgb = cv2.imread('../../data/visual_results/full_resolution_images_of_fig_3_and_4/fig_3_a_rgb.png')
-# nir = cv2.imread('../../data/visual_results/full_resolution_images_of_fig_3_and_4/fig_3_a_nir.png')[:, :, 0]
-# rgb, nir = rgb[0:600, 200:800, :], nir[:600, 200:800]
+# rgb = cv2.imread('../../data/visual_results/full_resolution_images_of_fig_3_and_4/fig_3_b_rgb.png')
+# nir = cv2.imread('../../data/visual_results/full_resolution_images_of_fig_3_and_4/fig_3_b_nir.png')[:, :, 0]
 # enhancement(rgb, nir)

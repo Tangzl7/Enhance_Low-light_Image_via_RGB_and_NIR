@@ -68,14 +68,6 @@ def transmission_model(channel, vis_gradient, nir_gradient):
                 trainsmission_weight[x][y] = vis_sum[x][y] / nir_sum[x][y]
             else:
                 trainsmission_weight[x][y] = 1
-    # for x in range(vis_gradient.shape[0]):
-    #     for y in range(vis_gradient.shape[1]):
-    #         vis_win_sum = get_sum_win(vis_gradient, x, y)
-    #         nir_win_sum = get_sum_win(nir_gradient, x, y)
-    #         if vis_win_sum <= nir_win_sum:
-    #             trainsmission_weight[x][y] = vis_win_sum / nir_win_sum
-    #         else:
-    #             trainsmission_weight[x][y] = 1
     trainsmission_weight = guide_filter(channel, trainsmission_weight)
     return trainsmission_weight
 

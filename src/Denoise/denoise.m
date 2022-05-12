@@ -5,9 +5,6 @@ function OUT = denoise(I0_path, G_path, write_path)
 % in 2010 IEEE International Conference on Image Processing. IEEE, 2010, pp. 2537–2540
 % clear
 I0 = im2double(imread(I0_path));
-% yiq=rgb2yiq(I0);
-% figure,imshow(yiq);
-% figure,imshow(yiq2rgb(yiq));
 G = im2double(imread(G_path));
 
 tic
@@ -32,15 +29,7 @@ I0_l=rgb2yiq(I0);
 V_l_nir=wlsFilter_dul(I0_l(:,:,1),V_l,G,lambda);
 imwrite(V_l_nir, 'D:/PycharmProjects/Enhance_Low-light_Image_via_RGB_and_NIR/src/Interface/static/denoise/noise_reduce.png')
 
-%figure,imshow(V_l)
-%figure,imshow(V_l_nir)
-% figure,imshow(V_l_nir.*n_d)
-% figure,imshow(V_l_nir+n_d)
+
 OUT=yiq2rgb(cat(3,V_l_nir.*n_d,V_b(:,:,2),V_b(:,:,3)));
 imwrite(OUT, write_path);
-%figure,imshow(yiq2rgb(yiq))
-
-%yiq_wls=cat(3,V_l.*n_d,V_b(:,:,2),V_b(:,:,3));
-%toc
-%figure,imshow(yiq2rgb(yiq_wls))
 

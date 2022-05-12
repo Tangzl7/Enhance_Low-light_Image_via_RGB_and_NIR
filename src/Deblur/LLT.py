@@ -56,8 +56,6 @@ def llt(rgb, nir):
 
 
 def enhancement(rgb, nir):
-    # rgb = cv2.imread('./rgb.bmp')
-    # nir = cv2.imread('./nir.bmp')
     burred = burred_nir(nir)
     cv2.imwrite('static/deblur/blurred_nir.png', burred)
     rgb, nir, burred = np.float32(rgb), np.float32(nir), np.float32(burred)
@@ -76,7 +74,3 @@ def enhancement(rgb, nir):
     enhancement = np.minimum(255, np.maximum(0, enhancement))
     enhancement = np.uint8(enhancement)
     return enhancement
-    # cv2.namedWindow("enhancement",cv2.WINDOW_NORMAL)
-    # cv2.imshow('enhancement', enhancement)
-    # cv2.waitKey(0)
-    # cv2.imwrite('enhancement.png', enhancement)

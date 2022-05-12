@@ -104,18 +104,6 @@ class LIME:
 
     def enhance(self):
         self.T = self.illumMap()
-        # cv2.imwrite('illummap_1.png', self.T_hat*255)
-        # cv2.imwrite('r.png', self.L[:, :, 0]*255)
-        # cv2.imwrite('g.png', self.L[:, :, 1]*255)
-        # cv2.imwrite('b.png', self.L[:, :, 2]*255)
-        # self.T = (cv2.imread('wls.png')[:, :, 0] / 255.) ** self.gamma
-        # self.T_R = (cv2.imread('wls_r.png')[:, :, 0] / 255.) ** self.gamma
-        # self.T_G = (cv2.imread('wls_r.png')[:, :, 0] / 255.) ** self.gamma
-        # self.T_B = (cv2.imread('wls_r.png')[:, :, 0] / 255.) ** self.gamma
-        # self.T = self.T_hat ** self.gamma
-        # self.R[:, :, 0] = self.L[:, :, 0] / (self.T_R)
-        # self.R[:, :, 1] = self.L[:, :, 1] / (self.T_G)
-        # self.R[:, :, 2] = self.L[:, :, 2] / self.T_B
         self.R = self.L / np.repeat(self.T[:, :, np.newaxis], 3, axis=2)
         self.R = exposure.rescale_intensity(self.R, (0, 1))
         self.R = img_as_ubyte(self.R)
@@ -137,7 +125,7 @@ def main(options):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--filePath", default="../test/80_rgb.bmp", type=str, help="image path to enhance")
+    parser.add_argument("-f", "--filePath", default="../../data/lowlight/rgb/20.png", type=str, help="image path to enhance")
     parser.add_argument("-m", "--map", action="store_true", help="save illumination map")
     parser.add_argument("-o", "--output", default="./", type=str, help="output folder")
 
