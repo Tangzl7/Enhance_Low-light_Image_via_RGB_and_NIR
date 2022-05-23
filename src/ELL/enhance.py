@@ -56,6 +56,7 @@ def enhancement(img, nir):
 
     reflection_model_ = reflection_model_init(hsv[:, :, 2], nir)
     reflection_model_ = np.clip(reflection_model_, 0, 1)
+    cv2.imwrite('../Interface/static/low_light_enhancement/reflection_model.png', np.uint8(reflection_model_*255))
     reflection_model_ = cv2.GaussianBlur(reflection_model_, (5, 5), 0)
 
     hsv[:, :, 2] = hsv[:, :, 2] * (1 - reflection_model_) + nir * (reflection_model_)
@@ -65,7 +66,7 @@ def enhancement(img, nir):
 
     result = np.minimum(255, np.maximum(0, result))
     result = np.uint8(result)
-    cv2.imwrite('result1.png', result)
+    cv2.imwrite('../Interface/static/low_light_enhancement/result1.png', result)
     return result
 
 
@@ -84,8 +85,8 @@ def enhance(rgb_path, nir_path):
     enhancement(rgb, nir)
 
     eng = matlab.engine.start_matlab()
-    eng.ELL('result1.png', nir_path, 'result2.png')
+    eng.ELL('../Interface/static/low_light_enhancement/result1.png', nir_path, '../Interface/static/low_light_enhancement/result2.png')
 
-    result = deHaze(cv2.imread('result2.png') / 255.0, nir_path=nir_path) * 255
+    result = deHaze(cv2.imread('../Interface/static/low_light_enhancement/result2.png') / 255.0, nir_path=nir_path) * 255
     cv2.imwrite('../Interface/static/low_light_enhancement/enhancement.png', result)
 

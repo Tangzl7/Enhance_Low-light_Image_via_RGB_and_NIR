@@ -57,7 +57,7 @@ def llt(rgb, nir):
 
 def enhancement(rgb, nir):
     burred = burred_nir(nir)
-    cv2.imwrite('static/deblur/blurred_nir.png', burred)
+    cv2.imwrite('../Interface/static/deblur/blurred_nir.png', burred)
     rgb, nir, burred = np.float32(rgb), np.float32(nir), np.float32(burred)
     rgb, nir, burred = rgb / 255., nir / 255., burred / 255.
     llt_map = llt(rgb, burred)

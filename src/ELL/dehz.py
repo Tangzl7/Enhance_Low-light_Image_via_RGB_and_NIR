@@ -39,13 +39,14 @@ def guidedfilter(I, p, r, eps):
 
 def getV1(m, r, eps, w, maxV1, nir_path):  # 输入rgb图像，值范围[0,1]
     '''计算大气遮罩图像V1和光照值A, V1 = 1-t/A'''
-    img = cv2.imread('./result2.png')
+    img = cv2.imread('../Interface/static/low_light_enhancement/result2.png')
     nir = cv2.imread(nir_path)[:, :, 0] / 255.0
     il = cv2.imread('../Interface/static/low_light_enhancement/illumination.png')[:, :, 0] / 255.0
     nir = np.uint8(nir / (il ** 0.7) * 255)
     diff = np.abs(nir * 1.0 - img[:, :, 0] * 1.0) / 255.
     dens_map = img.min(axis=-1) / 255.
     dens_map = np.minimum(diff, dens_map)
+    cv2.imwrite('../Interface/static/low_light_enhancement/dense_map.png', np.uint8(dens_map*255))
 
     V1 = np.min(m, 2)  # 得到暗通道图像
     V1 = guidedfilter(V1, zmMinFilterGray(V1, 7), r, eps)  # 使用引导滤波优化

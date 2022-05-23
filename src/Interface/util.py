@@ -18,6 +18,9 @@ def get_rgb_img():
     img = request.files.get('file')
     if img is not None:
         img.save('static/detail_enhancement/rgb.png')
+        tmp = cv2.imread('static/detail_enhancement/rgb.png')
+        tmp = cv2.resize(tmp, (1024, 680))
+        cv2.imwrite('static/detail_enhancement/rgb.png', tmp)
     return {'code': 200, 'rgb': 'http://127.0.0.1:5590/static/detail_enhancement/rgb.png'}
 
 
@@ -26,6 +29,9 @@ def get_nir_img():
     img = request.files.get('file')
     if img is not None:
         img.save('static/detail_enhancement/nir.png')
+        tmp = cv2.imread('static/detail_enhancement/nir.png')
+        tmp = cv2.resize(tmp, (1024, 680))
+        cv2.imwrite('static/detail_enhancement/nir.png', tmp)
     return {'code': 200, 'nir': 'http://127.0.0.1:5590/static/detail_enhancement/nir.png'}
 
 
@@ -34,6 +40,9 @@ def blur_rgb_img():
     img = request.files.get('file')
     if img is not None:
         img.save('static/deblur/rgb.png')
+        tmp = cv2.imread('static/deblur/rgb.png')
+        tmp = cv2.resize(tmp, (1024, 680))
+        cv2.imwrite('static/deblur/rgb.png', tmp)
     return {'code': 200, 'rgb': 'http://127.0.0.1:5590/static/deblur/rgb.png'}
 
 
@@ -42,6 +51,9 @@ def sharp_nir_img():
     img = request.files.get('file')
     if img is not None:
         img.save('static/deblur/nir.png')
+        tmp = cv2.imread('static/deblur/nir.png')
+        tmp = cv2.resize(tmp, (1024, 680))
+        cv2.imwrite('static/deblur/nir.png', tmp)
     return {'code': 200, 'nir': 'http://127.0.0.1:5590/static/deblur/nir.png'}
 
 
@@ -50,6 +62,9 @@ def noisy_rgb_img():
     img = request.files.get('file')
     if img is not None:
         img.save('static/denoise/rgb.png')
+        tmp = cv2.imread('static/denoise/rgb.png')
+        tmp = cv2.resize(tmp, (1024, 680))
+        cv2.imwrite('static/denoise/rgb.png', tmp)
     return {'code': 200, 'rgb': 'http://127.0.0.1:5590/static/denoise/rgb.png'}
 
 
@@ -58,6 +73,9 @@ def clear_nir_img():
     img = request.files.get('file')
     if img is not None:
         img.save('static/denoise/nir.png')
+        tmp = cv2.imread('static/denoise/nir.png')
+        tmp = cv2.resize(tmp, (1024, 680))
+        cv2.imwrite('static/denoise/nir.png', tmp)
     return {'code': 200, 'nir': 'http://127.0.0.1:5590/static/denoise/nir.png'}
 
 
@@ -66,6 +84,9 @@ def low_light_rgb_img():
     img = request.files.get('file')
     if img is not None:
         img.save('static/low_light_enhancement/rgb.png')
+        tmp = cv2.imread('static/low_light_enhancement/rgb.png')
+        tmp = cv2.resize(tmp, (1024, 680))
+        cv2.imwrite('static/low_light_enhancement/rgb.png', tmp)
     return {'code': 200, 'rgb': 'http://127.0.0.1:5590/static/low_light_enhancement/rgb.png'}
 
 
@@ -74,6 +95,9 @@ def low_light_nir_img():
     img = request.files.get('file')
     if img is not None:
         img.save('static/low_light_enhancement/nir.png')
+        tmp = cv2.imread('static/low_light_enhancement/nir.png')
+        tmp = cv2.resize(tmp, (1024, 680))
+        cv2.imwrite('static/low_light_enhancement/nir.png', tmp)
     return {'code': 200, 'nir': 'http://127.0.0.1:5590/static/low_light_enhancement/nir.png'}
 
 
